@@ -73,7 +73,27 @@ class APIService {
         apiAuthToken = nil
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.window!.rootViewController = UINavigationController(rootViewController: ViewController())
+        appDelegate.window!.rootViewController = UINavigationController(rootViewController: ScanViewController())
+    }
+    
+    func fetchUserInfo(success: ((UserInfoModel) -> Void)?, failure: ((ErrorModel) -> Void)?) {
+        request(method: .get, path: "/api/user-info", params: nil, paramsType: nil, requireAuth: true, success: { (data) in
+            
+            let dict = data as! [String: Any]
+            let data = try! JSONSerialization.data(withJSONObject: dict, options: [])
+            
+            do {
+                let userInfo = try JSONDecoder().decode(UserInfoModel.self, from: data)
+                if let success = success {
+                    success(userInfo)
+                }
+                
+            } catch {
+                if let failure = failure {
+                    failure(ErrorModel(code: 999, message: error.localizedDescription))
+                }
+            }
+        }, failure: failure)
     }
     
     func request(path: String, success: ((Any) -> Void)?, failure: ((ErrorModel) -> Void)?) {
