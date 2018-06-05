@@ -43,6 +43,7 @@ class ScanViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor.backgroundColor()
 
         view.addSubview(borderImageView)
         setupConstraints()
