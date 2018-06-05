@@ -251,16 +251,16 @@ class AVCaptureSessionManager: AVCaptureSession, AVCaptureMetadataOutputObjectsD
 }
 
 enum AVCaptureType {
-    case AVCaptureTypeQRCode
-    case AVCaptureTypeBarCode
-    case AVCaptureTypeBoth
+    case qrCode
+    case barCode
+    case both
     func supportTypes() -> [AVMetadataObject.ObjectType] {
         switch self {
-        case .AVCaptureTypeQRCode:
+        case .qrCode:
             return [.qr]
-        case .AVCaptureTypeBarCode:
+        case .barCode:
             return [.ean13, .upce, .ean8, .code128, .code39, .code93]
-        case .AVCaptureTypeBoth:
+        case .both:
             return [.qr, .ean13, .upce, .ean8, .code128, .code39, .code93]
         }
     }

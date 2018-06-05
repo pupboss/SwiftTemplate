@@ -30,7 +30,7 @@ class LaunchViewController: UIViewController {
             }
         } else {
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            appDelegate.window!.rootViewController = NavigationController(rootViewController: RegisterViewController())
+            appDelegate.window!.rootViewController = NavigationController(rootViewController: ScanViewController())
         }
     }
 }
