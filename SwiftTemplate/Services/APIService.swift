@@ -77,7 +77,7 @@ class APIService {
     }
     
     func fetchUserInfo(success: ((UserInfoModel) -> Void)?, failure: ((ErrorModel) -> Void)?) {
-        request(method: .get, path: "/api/user-info", params: nil, paramsType: nil, requireAuth: true, success: { (data) in
+        request(method: .get, path: "/api/user-info", params: nil, paramsType: nil, requireAuth: true, requireMask: true, success: { (data) in
             
             let dict = data as! [String: Any]
             let data = try! JSONSerialization.data(withJSONObject: dict, options: [])
@@ -96,14 +96,25 @@ class APIService {
         }, failure: failure)
     }
     
-    /// non-params get request
+    /// non-params get request with mask
     ///
     /// - Parameters:
-    ///   - path: path
+    ///   - path: String
     ///   - success: success()
     ///   - failure: failure()
     func request(path: String, success: ((Any) -> Void)?, failure: ((ErrorModel) -> Void)?) {
-        request(method: .get, path: path, params: nil, paramsType: nil, requireAuth: true, success: success, failure: failure)
+        request(method: .get, path: path, params: nil, paramsType: nil, requireAuth: true, requireMask: true, success: success, failure: failure)
+    }
+    
+    /// non-params get request
+    ///
+    /// - Parameters:
+    ///   - path: String
+    ///   - requireMask: Bool
+    ///   - success: success()
+    ///   - failure: failure()
+    func request(path: String, requireMask: Bool, success: ((Any) -> Void)?, failure: ((ErrorModel) -> Void)?) {
+        request(method: .get, path: path, params: nil, paramsType: nil, requireAuth: true, requireMask: requireMask, success: success, failure: failure)
     }
     
     /// request with auth header
@@ -113,16 +124,19 @@ class APIService {
     ///   - path: String
     ///   - params: [:]
     ///   - paramsType: .type
-    ///   - success: success
-    ///   - failure: failure
-    func request(method: HTTPMethod, path: String, params: [String: Any]?, paramsType: ParamsType?, success: ((Any) -> Void)?, failure: ((ErrorModel) -> Void)?) {
-        request(method: method, path: path, params: params, paramsType: paramsType, requireAuth: true, success: success, failure: failure)
+    ///   - success: success()
+    ///   - failure: failure()
+    func request(method: HTTPMethod, path: String, params: [String: Any]?, paramsType: ParamsType?, requireMask: Bool, success: ((Any) -> Void)?, failure: ((ErrorModel) -> Void)?) {
+        request(method: method, path: path, params: params, paramsType: paramsType, requireAuth: true, requireMask: requireMask, success: success, failure: failure)
     }
     
-    func request(method: HTTPMethod, path: String, params: [String: Any]?, paramsType: ParamsType?, requireAuth: Bool, success: ((Any) -> Void)?, failure: ((ErrorModel) -> Void)?) {
+    func request(method: HTTPMethod, path: String, params: [String: Any]?, paramsType: ParamsType?, requireAuth: Bool, requireMask: Bool, success: ((Any) -> Void)?, failure: ((ErrorModel) -> Void)?) {
         
         DispatchQueue.main.async {
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            if requireMask {
+                SwiftProgressHUD.showWait()
+            }
         }
         let requestURL = Constants.apiHost + path
         
@@ -134,6 +148,9 @@ class APIService {
             
             DispatchQueue.main.async {
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                if requireMask {
+                    SwiftProgressHUD.hideAllHUD()
+                }
             }
             switch responseObject.result {
             case .success(let value):
