@@ -96,10 +96,25 @@ class APIService {
         }, failure: failure)
     }
     
+    /// non-params get request
+    ///
+    /// - Parameters:
+    ///   - path: path
+    ///   - success: success()
+    ///   - failure: failure()
     func request(path: String, success: ((Any) -> Void)?, failure: ((ErrorModel) -> Void)?) {
         request(method: .get, path: path, params: nil, paramsType: nil, requireAuth: true, success: success, failure: failure)
     }
     
+    /// request with auth header
+    ///
+    /// - Parameters:
+    ///   - method: .method
+    ///   - path: String
+    ///   - params: [:]
+    ///   - paramsType: .type
+    ///   - success: success
+    ///   - failure: failure
     func request(method: HTTPMethod, path: String, params: [String: Any]?, paramsType: ParamsType?, success: ((Any) -> Void)?, failure: ((ErrorModel) -> Void)?) {
         request(method: method, path: path, params: params, paramsType: paramsType, requireAuth: true, success: success, failure: failure)
     }
