@@ -9,7 +9,7 @@
 import UIKit
 
 extension UILabel {
-    func changeCharacterSpace(space: CGFloat) {
+    func changeCharacterSpace(_ space: CGFloat) {
         text = text ?? ""
         let attributedString = NSMutableAttributedString(string: text!, attributes: [.kern: space])
         let paragraphStyle = NSMutableParagraphStyle()
@@ -20,7 +20,7 @@ extension UILabel {
 }
 
 extension UITextField {
-    func changeCharacterSpace(space: CGFloat) {
+    func changeCharacterSpace(_ space: CGFloat) {
         text = text ?? ""
         let attributedString = NSMutableAttributedString(string: text!, attributes: [.kern: space])
         let paragraphStyle = NSMutableParagraphStyle()
