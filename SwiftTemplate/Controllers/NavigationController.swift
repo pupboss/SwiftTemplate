@@ -13,11 +13,11 @@ class NavigationController: UINavigationController {
     override init(rootViewController: UIViewController) {
         super.init(rootViewController: rootViewController)
         
-        UINavigationBar.appearance().tintColor = UIColor.tintColor()
+        UINavigationBar.appearance().tintColor = UIColor.tc.tint
         UINavigationBar.appearance().backIndicatorImage = UIImage(named: "icon_nav_back")
         UINavigationBar.appearance().backIndicatorTransitionMaskImage = UIImage(named: "icon_nav_back")
         
-        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.tintColor()]
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.tc.tint]
         UINavigationBar.appearance().shadowImage = UIImage()
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
         

@@ -24,7 +24,7 @@ extension String {
         return NSNotification.Name(rawValue: self)
     }
     
-    func fromBase64() -> String? {
+    var fromBase64: String? {
         guard let data = Data(base64Encoded: self, options: Data.Base64DecodingOptions(rawValue: 0)) else {
             return nil
         }
@@ -32,11 +32,17 @@ extension String {
         return String(data: data as Data, encoding: String.Encoding.utf8)
     }
     
-    func toBase64() -> String? {
+    var toBase64: String? {
         guard let data = self.data(using: String.Encoding.utf8) else {
             return nil
         }
         
         return data.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0))
+    }
+    
+    var validCreditCard: Bool {
+        let regex = "((?:4\\d{3})|(?:5[1-5]\\d{2})|(?:6011)|(?:3[68]\\d{2})|(?:30[012345]\\d))[ -]?(\\d{4})[ -]?(\\d{4})[ -]?(\\d{4}|3[4,7]\\d{13})$"
+        let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
+        return predicate.evaluate(with: self)
     }
 }

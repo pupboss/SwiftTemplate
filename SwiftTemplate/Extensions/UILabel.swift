@@ -18,3 +18,14 @@ extension UILabel {
         attributedText = attributedString
     }
 }
+
+extension UITextField {
+    func changeCharacterSpace(space: CGFloat) {
+        text = text ?? ""
+        let attributedString = NSMutableAttributedString(string: text!, attributes: [.kern: space])
+        let paragraphStyle = NSMutableParagraphStyle()
+        attributedString.addAttributes([.paragraphStyle: paragraphStyle], range: NSMakeRange(0, text!.count))
+        
+        attributedText = attributedString
+    }
+}

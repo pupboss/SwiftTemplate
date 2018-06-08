@@ -16,12 +16,12 @@ class SendCodeButton: UIButton {
         super.init(frame: frame)
         
         setTitle("Send", for: .normal)
-        setTitleColor(UIColor.backgroundColor(), for: .normal)
-        setTitleColor(UIColor.disableTextColor(), for: .disabled)
+        setTitleColor(UIColor.tc.background, for: .normal)
+        setTitleColor(UIColor.tc.disableText, for: .disabled)
         
-        setBackgroundImage(UIImage.fromColor(color: UIColor.clear), for: .disabled)
+        setBackgroundImage(UIImage.fromColor(.clear), for: .disabled)
         layer.borderWidth = 1
-        layer.borderColor = UIColor.tintColor().cgColor
+        layer.borderColor = UIColor.tc.tint.cgColor
     }
     
     required init?(coder aDecoder: NSCoder) {
