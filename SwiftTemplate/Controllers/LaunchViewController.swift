@@ -15,9 +15,7 @@ class LaunchViewController: UIViewController {
         
         if APIService.shared.apiAuthToken != nil {
             
-            SwiftProgressHUD.showWait()
             APIService.shared.fetchUserInfo(success: { (userInfo) in
-                SwiftProgressHUD.hideAllHUD()
                 
                 // Do some work
                 
@@ -25,7 +23,6 @@ class LaunchViewController: UIViewController {
                 appDelegate.window!.rootViewController = NavigationController(rootViewController: ScanViewController())
                 
             }) { (error) in
-                SwiftProgressHUD.hideAllHUD()
                 APIService.shared.clearAuthAndReLogin()
             }
         } else {
