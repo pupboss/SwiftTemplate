@@ -1,12 +1,28 @@
 //
-//  String.swift
+//  Foundation.swift
 //  SwiftTemplate
 //
-//  Created by Jet Lee on 31/5/18.
+//  Created by Jet Lee on 29/5/18.
 //  Copyright © 2018 PUPBOSS. All rights reserved.
 //
 
 import Foundation
+
+extension Date {
+    
+    func formattedString(withDateFormat dateFormat: String) -> String {
+        
+        let f = DateFormatter()
+        f.dateFormat = dateFormat
+        return f.string(from: self)
+    }
+}
+
+extension Bool {
+    var intValue: Int {
+        return self ? 1 : 0
+    }
+}
 
 extension String {
     
@@ -44,5 +60,13 @@ extension String {
         let regex = "((?:4\\d{3})|(?:5[1-5]\\d{2})|(?:6011)|(?:3[68]\\d{2})|(?:30[012345]\\d))[ -]?(\\d{4})[ -]?(\\d{4})[ -]?(\\d{4}|3[4,7]\\d{13})$"
         let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
         return predicate.evaluate(with: self)
+    }
+}
+
+extension Double {
+    
+    func priceString() -> String {
+        
+        return String(format: "%0.2f", self)
     }
 }
