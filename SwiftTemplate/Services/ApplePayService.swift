@@ -48,13 +48,14 @@ class ApplePayService {
         
         return payload
     }
-    class func paymentRequestWithMerchantIdentifier(merchantIdentifier: String, countryCode: String, currencyCode: String) -> PKPaymentRequest {
+    
+    class func paymentRequest(withMerchantIdentifier merchantIdentifier: String, country: String, currency: String) -> PKPaymentRequest {
         let paymentRequest = PKPaymentRequest()
         paymentRequest.merchantIdentifier = merchantIdentifier
         paymentRequest.supportedNetworks = supportedPKPaymentNetworks()
         paymentRequest.merchantCapabilities = .capability3DS
-        paymentRequest.countryCode = countryCode.uppercased()
-        paymentRequest.currencyCode = currencyCode.uppercased()
+        paymentRequest.countryCode = country.uppercased()
+        paymentRequest.currencyCode = currency.uppercased()
         return paymentRequest
     }
     

@@ -66,4 +66,29 @@ extension UIImage {
         UIGraphicsEndImageContext()
         return newImage!
     }
+    
+    class func fromView(_ view: UIView) -> UIImage {
+        
+        UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.isOpaque, 0.0)
+        view.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image ?? UIImage()
+    }
+}
+
+extension UIScreen {
+    
+    private static let step: CGFloat = 0.1
+    
+    static func animateBrightness(to value: CGFloat) {
+        guard abs(UIScreen.main.brightness - value) > step else { return }
+        
+        let delta = UIScreen.main.brightness > value ? -step : step
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+            UIScreen.main.brightness += delta
+            animateBrightness(to: value)
+        }
+    }
 }
