@@ -169,4 +169,39 @@ class APIService {
             }
         }
     }
+    
+    func createTokenWithCard(card: [String: Any], success: ((String?) -> Void)?, failure: ((ErrorModel) -> Void)?) {
+        
+        DispatchQueue.main.async {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            SwiftProgressHUD.showWait()
+        }
+        let requestURL = "https://api.stripe.com/v1/tokens"
+        let headers = ["Authorization": "Basic " + "\(Constants.stripeAppKey):".toBase64!, "Content-Type": "application/x-www-form-urlencoded; charset=utf-8"]
+        
+        sManager.request(requestURL, method: .post, parameters: card, encoding: URLEncoding.default, headers: headers).validate(statusCode: 200..<300).responseJSON { (responseObject) in
+            
+            DispatchQueue.main.async {
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                SwiftProgressHUD.hideAllHUD()
+            }
+            switch responseObject.result {
+            case .success(let value):
+                let responseDict = value as! [String : Any]
+                print("\(requestURL)\n\(responseDict)")
+                
+                if let success = success {
+                    success(responseDict["id"] as? String)
+                }
+            case .failure(let error):
+                print("\(requestURL)\n\(error)")
+                
+                let statusCode = responseObject.response?.statusCode ?? 999
+                
+                if let failure = failure {
+                    failure(ErrorModel(code: statusCode, message: error.localizedDescription))
+                }
+            }
+        }
+    }
 }
