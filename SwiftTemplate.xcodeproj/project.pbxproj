@@ -18,7 +18,6 @@
 		083D991F20C66EC500873C41 /* SendCodeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083D991C20C66EC500873C41 /* SendCodeButton.swift */; };
 		083D992C20C66EFE00873C41 /* Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083D992520C66EFE00873C41 /* Foundation.swift */; };
 		083D993020C66EFE00873C41 /* UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083D992920C66EFE00873C41 /* UIKit.swift */; };
-		083D993720C66F1800873C41 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083D993420C66F1800873C41 /* APIService.swift */; };
 		083D993820C66F1800873C41 /* ApplePayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083D993520C66F1800873C41 /* ApplePayService.swift */; };
 		083D993E20C66F1D00873C41 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083D993B20C66F1D00873C41 /* Constant.swift */; };
 		083D994020C66F1D00873C41 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083D993D20C66F1D00873C41 /* Utils.swift */; };
@@ -32,6 +31,7 @@
 		083D99A020C677BA00873C41 /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083D999F20C677BA00873C41 /* UserInfoModel.swift */; };
 		083D99A220C6780E00873C41 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083D99A120C6780E00873C41 /* RegisterViewController.swift */; };
 		1133DFFC6AC537E82B2E5CCC /* Pods_SwiftTemplate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7639F6FB3C35F6B3F3F205E /* Pods_SwiftTemplate.framework */; };
+		40BB57132409379A00236BFE /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BB57122409379A00236BFE /* APIService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,7 +69,6 @@
 		083D991C20C66EC500873C41 /* SendCodeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendCodeButton.swift; sourceTree = "<group>"; };
 		083D992520C66EFE00873C41 /* Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Foundation.swift; sourceTree = "<group>"; };
 		083D992920C66EFE00873C41 /* UIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKit.swift; sourceTree = "<group>"; };
-		083D993420C66F1800873C41 /* APIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		083D993520C66F1800873C41 /* ApplePayService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplePayService.swift; sourceTree = "<group>"; };
 		083D993B20C66F1D00873C41 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		083D993D20C66F1D00873C41 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
@@ -83,6 +82,7 @@
 		083D999F20C677BA00873C41 /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
 		083D99A120C6780E00873C41 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		12B85DB6F8015DED62A5F6CF /* Pods-SwiftTemplate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftTemplate.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftTemplate/Pods-SwiftTemplate.release.xcconfig"; sourceTree = "<group>"; };
+		40BB57122409379A00236BFE /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		B7639F6FB3C35F6B3F3F205E /* Pods_SwiftTemplate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftTemplate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C28A5DC2A6DA4B3A8E756602 /* Pods-SwiftTemplate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftTemplate.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftTemplate/Pods-SwiftTemplate.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -222,7 +222,7 @@
 		083D993320C66F1800873C41 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				083D993420C66F1800873C41 /* APIService.swift */,
+				40BB57122409379A00236BFE /* APIService.swift */,
 				083D993520C66F1800873C41 /* ApplePayService.swift */,
 			);
 			path = Services;
@@ -464,6 +464,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				083D991820C66DFA00873C41 /* ErrorModel.swift in Sources */,
+				40BB57132409379A00236BFE /* APIService.swift in Sources */,
 				083D99A220C6780E00873C41 /* RegisterViewController.swift in Sources */,
 				083D992C20C66EFE00873C41 /* Foundation.swift in Sources */,
 				083D995B20C66F2300873C41 /* SwiftProgressHUD.swift in Sources */,
@@ -476,7 +477,6 @@
 				083D993020C66EFE00873C41 /* UIKit.swift in Sources */,
 				083D999C20C6774200873C41 /* NavigationController.swift in Sources */,
 				083D999A20C676FF00873C41 /* LaunchViewController.swift in Sources */,
-				083D993720C66F1800873C41 /* APIService.swift in Sources */,
 				083D995D20C66F2300873C41 /* UIImage+ZZYQRCodeImage.swift in Sources */,
 				083D99A020C677BA00873C41 /* UserInfoModel.swift in Sources */,
 				083D991E20C66EC500873C41 /* BadgeButton.swift in Sources */,
