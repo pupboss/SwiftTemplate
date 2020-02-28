@@ -75,12 +75,12 @@ class AVCaptureSessionManager: AVCaptureSession, AVCaptureMetadataOutputObjectsD
         output.metadataObjectTypes = captureType.supportTypes()
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(stop),
-                                               name: NSNotification.Name.UIApplicationDidEnterBackground,
+                                               name: UIApplication.didEnterBackgroundNotification,
                                                object: nil)
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(start),
-                                               name: NSNotification.Name.UIApplicationWillEnterForeground,
+                                               name: UIApplication.willEnterForegroundNotification,
                                                object: nil)
     
     }

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -344,13 +344,16 @@
 				TargetAttributes = {
 					083D98E020C66CCE00873C41 = {
 						CreatedOnToolsVersion = 9.4;
+						LastSwiftMigration = 1130;
 					};
 					083D98F420C66CCF00873C41 = {
 						CreatedOnToolsVersion = 9.4;
+						LastSwiftMigration = 1130;
 						TestTargetID = 083D98E020C66CCE00873C41;
 					};
 					083D98FF20C66CCF00873C41 = {
 						CreatedOnToolsVersion = 9.4;
+						LastSwiftMigration = 1130;
 						TestTargetID = 083D98E020C66CCE00873C41;
 					};
 				};
@@ -423,19 +426,16 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-SwiftTemplate/Pods-SwiftTemplate-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SwiftTemplate/Pods-SwiftTemplate-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SwiftTemplate/Pods-SwiftTemplate-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SwiftTemplate/Pods-SwiftTemplate-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SwiftTemplate/Pods-SwiftTemplate-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BB8657F86FB02AB0674716E1 /* [CP] Check Pods Manifest.lock */ = {
@@ -664,7 +664,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.pupboss.SwiftTemplate;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -684,7 +684,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.pupboss.SwiftTemplate;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -704,7 +704,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.pupboss.SwiftTemplateTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftTemplate.app/SwiftTemplate";
 			};
@@ -725,7 +725,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.pupboss.SwiftTemplateTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftTemplate.app/SwiftTemplate";
 			};
@@ -745,7 +745,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.pupboss.SwiftTemplateUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = SwiftTemplate;
 			};
@@ -765,7 +765,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.pupboss.SwiftTemplateUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = SwiftTemplate;
 			};

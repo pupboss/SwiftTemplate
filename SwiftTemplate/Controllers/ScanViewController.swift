@@ -23,7 +23,7 @@ class ScanViewController: UIViewController {
             sManager!.isPlaySound = true
         }, denied: {
             let action = UIAlertAction(title: "OK", style: .default, handler: { (action) in
-                let url = URL(string: UIApplicationOpenSettingsURLString)
+                let url = URL(string: UIApplication.openSettingsURLString)
                 UIApplication.shared.open(url!, options: [:], completionHandler: nil)
             })
             let alert = UIAlertController(title: "Permission denied", message: "Please allow camera permission to make barcode detection", preferredStyle: .alert)

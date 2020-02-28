@@ -13,9 +13,9 @@ class LaunchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if APIService.shared.apiAuthToken != nil {
+        if APIService.default.apiAuthToken != nil {
             
-            APIService.shared.fetchUserInfo(success: { (userInfo) in
+            APIService.default.fetchUserInfo(success: { (userInfo) in
                 
                 // Do some work
                 
@@ -23,7 +23,7 @@ class LaunchViewController: UIViewController {
                 appDelegate.window!.rootViewController = NavigationController(rootViewController: ScanViewController())
                 
             }) { (error) in
-                APIService.shared.clearAuthAndReLogin()
+                APIService.default.clearAuthAndReLogin()
             }
         } else {
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
