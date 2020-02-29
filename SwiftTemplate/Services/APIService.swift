@@ -90,16 +90,16 @@ class APIService {
         request(method: .get, path: path, params: nil, paramsType: .form, success: success, failure: failure)
     }
     
-    func request(method: HTTPMethod, path: String, params: [String: String]?, paramsType: ParamsType, success: ((Any) -> Void)?, failure: ((ErrorModel) -> Void)?) {
+    func request(method: HTTPMethod, path: String, params: [String: Any]?, paramsType: ParamsType, success: ((Any) -> Void)?, failure: ((ErrorModel) -> Void)?) {
         
         DispatchQueue.main.async {
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
         }
         let requestURL = Constants.apiHost + path
         
-        let paramsEncoder: ParameterEncoder = paramsType == .form ? URLEncodedFormParameterEncoder.default : JSONParameterEncoder.default
+        let paramsEncoding: ParameterEncoding = paramsType == .form ? URLEncoding.default : JSONEncoding.default
         
-        session.request(requestURL, method: method, parameters: params, encoder: paramsEncoder).validate(statusCode: 200..<300).responseJSON { response in
+        session.request(requestURL, method: method, parameters: params, encoding: paramsEncoding).validate(statusCode: 200..<300).responseJSON { response in
             DispatchQueue.main.async {
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
             }
@@ -118,6 +118,41 @@ class APIService {
                 if statusCode == 401 {
                     self.clearAuthAndReLogin()
                 }
+                
+                if let failure = failure {
+                    failure(ErrorModel(code: statusCode, message: error.localizedDescription))
+                }
+            }
+        }
+    }
+    
+    func createTokenWithCard(card: [String: Any], success: ((String?) -> Void)?, failure: ((ErrorModel) -> Void)?) {
+        
+        DispatchQueue.main.async {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            SwiftProgressHUD.showWait()
+        }
+        let requestURL = "https://api.stripe.com/v1/tokens"
+        let headers = HTTPHeaders(["Authorization": "Basic " + "\(Constants.stripeAppKey):".toBase64!, "Content-Type": "application/x-www-form-urlencoded; charset=utf-8"])
+        
+        session.request(requestURL, method: .post, parameters: card, encoding: URLEncoding.default, headers: headers).validate(statusCode: 200..<300).responseJSON { (responseObject) in
+            
+            DispatchQueue.main.async {
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                SwiftProgressHUD.hideAllHUD()
+            }
+            switch responseObject.result {
+            case .success(let value):
+                let responseDict = value as! [String : Any]
+                print("\(requestURL)\n\(responseDict)")
+                
+                if let success = success {
+                    success(responseDict["id"] as? String)
+                }
+            case .failure(let error):
+                print("\(requestURL)\n\(error)")
+                
+                let statusCode = responseObject.response?.statusCode ?? 999
                 
                 if let failure = failure {
                     failure(ErrorModel(code: statusCode, message: error.localizedDescription))
