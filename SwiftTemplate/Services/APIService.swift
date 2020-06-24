@@ -3,7 +3,7 @@
 //  SwiftTemplate
 //
 //  Created by Jie Li on 28/2/20.
-//  Copyright © 2020 PUPBOSS. All rights reserved.
+//  Copyright © 2020 Meltdown Research. All rights reserved.
 //
 
 import Foundation

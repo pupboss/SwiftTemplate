@@ -4,5 +4,5 @@ inhibit_all_warnings!
 
 target 'SwiftTemplate' do
   pod 'SnapKit', '~> 5.0.1'
-  pod 'Alamofire', '~> 5.0.2'
+  pod 'Alamofire', '~> 5.2.1'
 end

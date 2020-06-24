@@ -2,8 +2,8 @@
 //  ErrorModel.swift
 //  SwiftTemplate
 //
-//  Created by Jet Lee on 1/6/18.
-//  Copyright © 2018 PUPBOSS. All rights reserved.
+//  Created by Jie Li on 1/6/18.
+//  Copyright © 2018 Meltdown Research. All rights reserved.
 //
 
 import Foundation

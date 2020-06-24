@@ -2,8 +2,8 @@
 //  Constant.swift
 //  SwiftTemplate
 //
-//  Created by Jet Lee on 29/5/18.
-//  Copyright © 2018 PUPBOSS. All rights reserved.
+//  Created by Jie Li on 29/5/18.
+//  Copyright © 2018 Meltdown Research. All rights reserved.
 //
 
 import Foundation

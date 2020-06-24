@@ -2,8 +2,8 @@
 //  NavigationController.swift
 //  SwiftTemplate
 //
-//  Created by Jet Lee on 30/5/18.
-//  Copyright © 2018 PUPBOSS. All rights reserved.
+//  Created by Jie Li on 30/5/18.
+//  Copyright © 2018 Meltdown Research. All rights reserved.
 //
 
 import UIKit
