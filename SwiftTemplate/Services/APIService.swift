@@ -19,7 +19,7 @@ public enum ParamsType : Int {
 final class AccessTokenInterceptor: RequestInterceptor {
     
     func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
-        guard urlRequest.url?.absoluteString.hasPrefix(Constants.apiHost + "/auth/") == true else {
+        guard urlRequest.url?.absoluteString.hasPrefix(Constants.apiHost + "/v1/auth/") == false else {
             return completion(.success(urlRequest))
         }
         
@@ -56,41 +56,70 @@ class APIService {
     
     func clearAuthAndReLogin() {
         UserDefaults.standard.set(nil, forKey: Constants.authTokenDefaultsKey)
-        
         apiAuthToken = nil
+        
+//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//        appDelegate.window?.rootViewController = UINavigationController(rootViewController: LoginViewController())
     }
     
     func fetchUserInfo(success: ((UserInfoModel) -> Void)?, failure: ((ErrorModel) -> Void)?) {
-        request(method: .get, path: "/api/user-info", params: nil, paramsType: .form, success: { (data) in
-            
-            let dict = data as! [String: Any]
-            let data = try! JSONSerialization.data(withJSONObject: dict, options: [])
-            
-            do {
-                let userInfo = try JSONDecoder().decode(UserInfoModel.self, from: data)
-                if let success = success {
-                    success(userInfo)
-                }
-                
-            } catch {
-                if let failure = failure {
-                    failure(ErrorModel(code: 999, message: error.localizedDescription))
-                }
+        requestDecodable(path: "/v1/user/show", decodealeType: UserInfoModel.self, success: { (value) in
+            if let success = success {
+                success(value)
             }
         }, failure: failure)
     }
 
-    /// non-params get request
-    ///
-    /// - Parameters:
-    ///   - path: String
-    ///   - success: success()
-    ///   - failure: failure()
-    func request(path: String, success: ((Any) -> Void)?, failure: ((ErrorModel) -> Void)?) {
-        request(method: .get, path: path, params: nil, paramsType: .form, success: success, failure: failure)
+    func requestDecodable<T: Decodable>(path: String, decodealeType: T.Type, success: ((T) -> Void)?, failure: ((ErrorModel) -> Void)?) {
+        requestDecodable(method: .get, path: path, params: nil, paramsType: .form, decodealeType: decodealeType, success: success, failure: failure)
     }
     
-    func request(method: HTTPMethod, path: String, params: [String: Any]?, paramsType: ParamsType, success: ((Any) -> Void)?, failure: ((ErrorModel) -> Void)?) {
+    func requestDecodable<T: Decodable>(method: HTTPMethod, path: String, params: [String: Any]?, paramsType: ParamsType, decodealeType: T.Type, success: ((T) -> Void)?, failure: ((ErrorModel) -> Void)?) {
+        
+        DispatchQueue.main.async {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        }
+        let requestURL = Constants.apiHost + path
+        
+        let paramsEncoding: ParameterEncoding = paramsType == .form ? URLEncoding.default : JSONEncoding.default
+        
+        session.request(requestURL, method: method, parameters: params, encoding: paramsEncoding).validate(statusCode: 200..<300).responseDecodable(of: decodealeType) { response in
+            DispatchQueue.main.async {
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            }
+            print(
+                """
+                [Request]
+                \(method.rawValue) \(String(describing: params))
+                \(requestURL)
+                [Response]
+                \(response.response?.statusCode ?? 999) \(String(decoding: response.data ?? Data(), as: UTF8.self))
+                """
+            )
+            switch response.result {
+            case .success(let value):
+                if let success = success {
+                    success(value)
+                }
+            case .failure(let aError):
+                let statusCode = response.response?.statusCode ?? 999
+
+                if statusCode == 401 {
+                    self.clearAuthAndReLogin()
+                }
+                
+                if let failure = failure {
+                    guard let error = try? JSONDecoder().decode(ErrorModel.self, from: response.data ?? Data()) else {
+                        failure(ErrorModel(code: statusCode, message: aError.localizedDescription))
+                        return
+                    }
+                    failure(error)
+                }
+            }
+        }
+    }
+    
+    func requestJSON(method: HTTPMethod, path: String, params: [String: Any]?, paramsType: ParamsType, success: ((Any) -> Void)?, failure: ((ErrorModel) -> Void)?) {
         
         DispatchQueue.main.async {
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
@@ -103,59 +132,33 @@ class APIService {
             DispatchQueue.main.async {
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
             }
+            print(
+                """
+                [Request]
+                \(method.rawValue) \(String(describing: params))
+                \(requestURL)
+                [Response]
+                \(response.response?.statusCode ?? 999) \(String(decoding: response.data ?? Data(), as: UTF8.self))
+                """
+            )
             switch response.result {
             case .success(let value):
-                print("success\n\(method.rawValue + "\n" + requestURL)\n\(String(describing: params))\n\(value)")
-                
                 if let success = success {
                     success(value)
                 }
-            case .failure(let error):
-                print("failure\n\(method.rawValue + "\n" + requestURL)\n\(String(describing: params))\n\(error)")
-                
+            case .failure(let aError):
                 let statusCode = response.response?.statusCode ?? 999
-                
+
                 if statusCode == 401 {
                     self.clearAuthAndReLogin()
                 }
                 
                 if let failure = failure {
-                    failure(ErrorModel(code: statusCode, message: error.localizedDescription))
-                }
-            }
-        }
-    }
-    
-    func createTokenWithCard(card: [String: Any], success: ((String?) -> Void)?, failure: ((ErrorModel) -> Void)?) {
-        
-        DispatchQueue.main.async {
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
-            SwiftProgressHUD.showWait()
-        }
-        let requestURL = "https://api.stripe.com/v1/tokens"
-        let headers = HTTPHeaders(["Authorization": "Basic " + "\(Constants.stripeAppKey):".toBase64!, "Content-Type": "application/x-www-form-urlencoded; charset=utf-8"])
-        
-        session.request(requestURL, method: .post, parameters: card, encoding: URLEncoding.default, headers: headers).validate(statusCode: 200..<300).responseJSON { (responseObject) in
-            
-            DispatchQueue.main.async {
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                SwiftProgressHUD.hideAllHUD()
-            }
-            switch responseObject.result {
-            case .success(let value):
-                let responseDict = value as! [String : Any]
-                print("\(requestURL)\n\(responseDict)")
-                
-                if let success = success {
-                    success(responseDict["id"] as? String)
-                }
-            case .failure(let error):
-                print("\(requestURL)\n\(error)")
-                
-                let statusCode = responseObject.response?.statusCode ?? 999
-                
-                if let failure = failure {
-                    failure(ErrorModel(code: statusCode, message: error.localizedDescription))
+                    guard let error = try? JSONDecoder().decode(ErrorModel.self, from: response.data ?? Data()) else {
+                        failure(ErrorModel(code: statusCode, message: aError.localizedDescription))
+                        return
+                    }
+                    failure(error)
                 }
             }
         }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ErrorModel {
+struct ErrorModel : Codable {
     
     let code: Int
     let message: String
