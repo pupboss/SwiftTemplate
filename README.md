@@ -24,7 +24,18 @@ func requestDecodable<T: Decodable>(path: String, decodableType: T.Type, complet
 A simple get & non-params request:
 
 ```
-APIService.default.requestDecodable(path: "/your/path", decodableType: OrderModel.self) { (result) in
+// Returns a normal object, use UserInfoModel.self
+APIService.default.requestDecodable(path: "/your/profile", decodableType: UserInfoModel.self) { (result) in
+    switch result {
+    case .success(let user):
+        user = user
+    case .failure(let error):
+        view.makeToast(error.message)
+    }
+}
+
+// Returens an array, use [OrderModel].self
+APIService.default.requestDecodable(path: "/your/orders", decodableType: [OrderModel].self) { (result) in
     switch result {
     case .success(let orders):
         orders = orders
