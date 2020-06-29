@@ -58,35 +58,26 @@ class APIService {
         UserDefaults.standard.set(nil, forKey: Constants.authTokenDefaultsKey)
         apiAuthToken = nil
         
-//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//        appDelegate.window?.rootViewController = UINavigationController(rootViewController: LoginViewController())
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.window?.rootViewController = UINavigationController(rootViewController: LoginViewController())
     }
     
-    func fetchUserInfo(success: ((UserInfoModel) -> Void)?, failure: ((ErrorModel) -> Void)?) {
-        requestDecodable(path: "/v1/user/show", decodealeType: UserInfoModel.self, success: { (value) in
-            if let success = success {
-                success(value)
-            }
-        }, failure: failure)
+    func fetchUserInfo(completionHandler: @escaping (Result<UserInfoModel, ErrorModel>) -> Void) {
+        
+        requestDecodable(path: "/v1/user/show", decodableType: UserInfoModel.self, completionHandler: completionHandler)
     }
 
-    func requestDecodable<T: Decodable>(path: String, decodealeType: T.Type, success: ((T) -> Void)?, failure: ((ErrorModel) -> Void)?) {
-        requestDecodable(method: .get, path: path, params: nil, paramsType: .form, decodealeType: decodealeType, success: success, failure: failure)
+    func requestDecodable<T: Decodable>(path: String, decodableType: T.Type, completionHandler: @escaping (Result<T, ErrorModel>) -> Void) {
+        requestDecodable(method: .get, path: path, params: nil, paramsType: .form, decodableType: decodableType, completionHandler: completionHandler)
     }
     
-    func requestDecodable<T: Decodable>(method: HTTPMethod, path: String, params: [String: Any]?, paramsType: ParamsType, decodealeType: T.Type, success: ((T) -> Void)?, failure: ((ErrorModel) -> Void)?) {
+    func requestDecodable<T: Decodable>(method: HTTPMethod, path: String, params: [String: Any]?, paramsType: ParamsType, decodableType: T.Type, completionHandler: @escaping (Result<T, ErrorModel>) -> Void) {
         
-        DispatchQueue.main.async {
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        }
         let requestURL = Constants.apiHost + path
         
         let paramsEncoding: ParameterEncoding = paramsType == .form ? URLEncoding.default : JSONEncoding.default
         
-        session.request(requestURL, method: method, parameters: params, encoding: paramsEncoding).validate(statusCode: 200..<300).responseDecodable(of: decodealeType) { response in
-            DispatchQueue.main.async {
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            }
+        session.request(requestURL, method: method, parameters: params, encoding: paramsEncoding).validate(statusCode: 200..<300).responseDecodable(of: decodableType) { response in
             print(
                 """
                 [Request]
@@ -98,9 +89,7 @@ class APIService {
             )
             switch response.result {
             case .success(let value):
-                if let success = success {
-                    success(value)
-                }
+                completionHandler(.success(value))
             case .failure(let aError):
                 let statusCode = response.response?.statusCode ?? 999
 
@@ -108,30 +97,22 @@ class APIService {
                     self.clearAuthAndReLogin()
                 }
                 
-                if let failure = failure {
-                    guard let error = try? JSONDecoder().decode(ErrorModel.self, from: response.data ?? Data()) else {
-                        failure(ErrorModel(code: statusCode, message: aError.localizedDescription))
-                        return
-                    }
-                    failure(error)
+                guard let error = try? JSONDecoder().decode(ErrorModel.self, from: response.data ?? Data()) else {
+                    completionHandler(.failure(ErrorModel(code: statusCode, message: aError.localizedDescription)))
+                    return
                 }
+                completionHandler(.failure(error))
             }
         }
     }
     
     func requestJSON(method: HTTPMethod, path: String, params: [String: Any]?, paramsType: ParamsType, success: ((Any) -> Void)?, failure: ((ErrorModel) -> Void)?) {
         
-        DispatchQueue.main.async {
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        }
         let requestURL = Constants.apiHost + path
         
         let paramsEncoding: ParameterEncoding = paramsType == .form ? URLEncoding.default : JSONEncoding.default
         
         session.request(requestURL, method: method, parameters: params, encoding: paramsEncoding).validate(statusCode: 200..<300).responseJSON { response in
-            DispatchQueue.main.async {
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            }
             print(
                 """
                 [Request]

@@ -19,15 +19,14 @@ extension UIColor {
         static var background: UIColor { return .white }
         static var subBackground: UIColor { return UIColor(r: 250, g: 250, b: 250) }
         static var theme: UIColor { return UIColor(r: 60, g: 50, b: 171) }
-        static var text: UIColor { return UIColor(r: 23, g: 22, b: 22) }
+        static var shadeTheme: UIColor { return UIColor(r: 60, g: 50, b: 171) }
+        static var tintTheme: UIColor { return UIColor(r: 183, g: 162, b: 222) }
         static var line: UIColor { return UIColor(r: 217, g: 217, b: 217) }
-        static var titleText: UIColor { return .black }
+        static var bodyText: UIColor { return UIColor(r: 23, g: 22, b: 22) }
         static var descText: UIColor { return .lightGray }
         static var disableText: UIColor { return .lightGray }
-        static var dangerText: UIColor { return UIColor(r: 241, g: 89, b: 94) }
-        static var tint: UIColor { return UIColor(r: 183, g: 162, b: 222) }
-        static var buttonText: UIColor { return UIColor.gray }
-        static var buttonHighlightedText: UIColor { return UIColor.darkGray }
+        static var red: UIColor { return UIColor(r: 241, g: 62, b: 58) }
+        static var green: UIColor { return UIColor(r: 0, g: 170, b: 59) }
     }
 }
 

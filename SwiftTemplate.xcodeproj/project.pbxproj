@@ -21,7 +21,6 @@
 		083D993820C66F1800873C41 /* ApplePayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083D993520C66F1800873C41 /* ApplePayService.swift */; };
 		083D993E20C66F1D00873C41 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083D993B20C66F1D00873C41 /* Constant.swift */; };
 		083D994020C66F1D00873C41 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083D993D20C66F1D00873C41 /* Utils.swift */; };
-		083D995B20C66F2300873C41 /* SwiftProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083D994D20C66F2300873C41 /* SwiftProgressHUD.swift */; };
 		083D995C20C66F2300873C41 /* AVCaptureSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083D994F20C66F2300873C41 /* AVCaptureSessionManager.swift */; };
 		083D995D20C66F2300873C41 /* UIImage+ZZYQRCodeImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083D995020C66F2300873C41 /* UIImage+ZZYQRCodeImage.swift */; };
 		083D995E20C66F2300873C41 /* ZZYQRCode.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 083D995120C66F2300873C41 /* ZZYQRCode.bundle */; };
@@ -29,6 +28,7 @@
 		083D999E20C6776F00873C41 /* ScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083D999D20C6776F00873C41 /* ScanViewController.swift */; };
 		083D99A020C677BA00873C41 /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083D999F20C677BA00873C41 /* UserInfoModel.swift */; };
 		1133DFFC6AC537E82B2E5CCC /* Pods_SwiftTemplate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7639F6FB3C35F6B3F3F205E /* Pods_SwiftTemplate.framework */; };
+		400C778424A997CD004B2E03 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400C778324A997CD004B2E03 /* Toast.swift */; };
 		406BCD0724A79635007EEE48 /* AuthenticationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406BCD0624A79635007EEE48 /* AuthenticationModel.swift */; };
 		40BB57132409379A00236BFE /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BB57122409379A00236BFE /* APIService.swift */; };
 /* End PBXBuildFile section */
@@ -71,7 +71,6 @@
 		083D993520C66F1800873C41 /* ApplePayService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplePayService.swift; sourceTree = "<group>"; };
 		083D993B20C66F1D00873C41 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		083D993D20C66F1D00873C41 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		083D994D20C66F2300873C41 /* SwiftProgressHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftProgressHUD.swift; sourceTree = "<group>"; };
 		083D994F20C66F2300873C41 /* AVCaptureSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVCaptureSessionManager.swift; sourceTree = "<group>"; };
 		083D995020C66F2300873C41 /* UIImage+ZZYQRCodeImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+ZZYQRCodeImage.swift"; sourceTree = "<group>"; };
 		083D995120C66F2300873C41 /* ZZYQRCode.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZZYQRCode.bundle; sourceTree = "<group>"; };
@@ -79,6 +78,7 @@
 		083D999D20C6776F00873C41 /* ScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanViewController.swift; sourceTree = "<group>"; };
 		083D999F20C677BA00873C41 /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
 		12B85DB6F8015DED62A5F6CF /* Pods-SwiftTemplate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftTemplate.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftTemplate/Pods-SwiftTemplate.release.xcconfig"; sourceTree = "<group>"; };
+		400C778324A997CD004B2E03 /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		406BCD0624A79635007EEE48 /* AuthenticationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationModel.swift; sourceTree = "<group>"; };
 		40BB57122409379A00236BFE /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		B7639F6FB3C35F6B3F3F205E /* Pods_SwiftTemplate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftTemplate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -237,7 +237,7 @@
 		083D994120C66F2300873C41 /* Venders */ = {
 			isa = PBXGroup;
 			children = (
-				083D994D20C66F2300873C41 /* SwiftProgressHUD.swift */,
+				400C778324A997CD004B2E03 /* Toast.swift */,
 				083D994E20C66F2300873C41 /* ZZYQRCodeSwift */,
 			);
 			path = Venders;
@@ -462,9 +462,9 @@
 			files = (
 				083D991820C66DFA00873C41 /* ErrorModel.swift in Sources */,
 				406BCD0724A79635007EEE48 /* AuthenticationModel.swift in Sources */,
+				400C778424A997CD004B2E03 /* Toast.swift in Sources */,
 				40BB57132409379A00236BFE /* APIService.swift in Sources */,
 				083D992C20C66EFE00873C41 /* Foundation.swift in Sources */,
-				083D995B20C66F2300873C41 /* SwiftProgressHUD.swift in Sources */,
 				083D993820C66F1800873C41 /* ApplePayService.swift in Sources */,
 				083D994020C66F1D00873C41 /* Utils.swift in Sources */,
 				083D991F20C66EC500873C41 /* SendCodeButton.swift in Sources */,
