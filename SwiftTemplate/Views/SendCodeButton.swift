@@ -21,7 +21,7 @@ class SendCodeButton: UIButton {
         
         setBackgroundImage(UIImage.fromColor(.clear), for: .disabled)
         layer.borderWidth = 1
-        layer.borderColor = UIColor.tc.tint.cgColor
+        layer.borderColor = UIColor.tc.tintTheme.cgColor
     }
     
     required init?(coder aDecoder: NSCoder) {

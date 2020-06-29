@@ -58,8 +58,8 @@ class APIService {
         UserDefaults.standard.set(nil, forKey: Constants.authTokenDefaultsKey)
         apiAuthToken = nil
         
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.window?.rootViewController = UINavigationController(rootViewController: LoginViewController())
+//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//        appDelegate.window?.rootViewController = UINavigationController(rootViewController: LoginViewController())
     }
     
     func fetchUserInfo(completionHandler: @escaping (Result<UserInfoModel, ErrorModel>) -> Void) {
@@ -90,7 +90,7 @@ class APIService {
             switch response.result {
             case .success(let value):
                 completionHandler(.success(value))
-            case .failure(let aError):
+            case .failure(let anError):
                 let statusCode = response.response?.statusCode ?? 999
 
                 if statusCode == 401 {
@@ -98,7 +98,7 @@ class APIService {
                 }
                 
                 guard let error = try? JSONDecoder().decode(ErrorModel.self, from: response.data ?? Data()) else {
-                    completionHandler(.failure(ErrorModel(code: statusCode, message: aError.localizedDescription)))
+                    completionHandler(.failure(ErrorModel(code: statusCode, message: anError.localizedDescription)))
                     return
                 }
                 completionHandler(.failure(error))
@@ -106,7 +106,7 @@ class APIService {
         }
     }
     
-    func requestJSON(method: HTTPMethod, path: String, params: [String: Any]?, paramsType: ParamsType, success: ((Any) -> Void)?, failure: ((ErrorModel) -> Void)?) {
+    func requestJSON(method: HTTPMethod, path: String, params: [String: Any]?, paramsType: ParamsType, completionHandler: @escaping (Result<Any, ErrorModel>) -> Void) {
         
         let requestURL = Constants.apiHost + path
         
@@ -124,23 +124,19 @@ class APIService {
             )
             switch response.result {
             case .success(let value):
-                if let success = success {
-                    success(value)
-                }
-            case .failure(let aError):
+                completionHandler(.success(value))
+            case .failure(let anError):
                 let statusCode = response.response?.statusCode ?? 999
 
                 if statusCode == 401 {
                     self.clearAuthAndReLogin()
                 }
                 
-                if let failure = failure {
-                    guard let error = try? JSONDecoder().decode(ErrorModel.self, from: response.data ?? Data()) else {
-                        failure(ErrorModel(code: statusCode, message: aError.localizedDescription))
-                        return
-                    }
-                    failure(error)
+                guard let error = try? JSONDecoder().decode(ErrorModel.self, from: response.data ?? Data()) else {
+                    completionHandler(.failure(ErrorModel(code: statusCode, message: anError.localizedDescription)))
+                    return
                 }
+                completionHandler(.failure(error))
             }
         }
     }
