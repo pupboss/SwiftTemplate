@@ -39,7 +39,7 @@ class APIService {
     
     private lazy var session: Session = {
         let configuration = URLSessionConfiguration.af.default
-        let uaHeader = HTTPHeader.userAgent("\(PublicService.default.bundleName)/\(PublicService.default.versionString)" + " (\(PublicService.default.buildString); iOS\(PublicService.default.systemVersion))")
+        let uaHeader = HTTPHeader.userAgent("\(PublicService.default.bundleName)/\(PublicService.default.versionString)" + " (\(PublicService.default.deviceModel); iOS\(PublicService.default.systemVersion))")
         configuration.headers.add(uaHeader)
         let session = Session(configuration: configuration, interceptor:AccessTokenInterceptor())
         
