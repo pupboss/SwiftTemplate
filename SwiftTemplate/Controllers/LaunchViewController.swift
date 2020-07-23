@@ -20,6 +20,8 @@ class LaunchViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        APIService.default.apiAuthToken = "To simulate exsiting users" // To simulate exsiting users
+        
         if APIService.default.apiAuthToken != nil {
             view.makeToastActivity(.center)
             
@@ -28,6 +30,8 @@ class LaunchViewController: UIViewController {
                 switch result {
                 case .success(_):
                     // Do something
+                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                    appDelegate.window!.rootViewController = UINavigationController(rootViewController: NewsViewController())
                     break
                 case .failure(_):
                     APIService.default.clearAuthAndReLogin()
@@ -35,8 +39,8 @@ class LaunchViewController: UIViewController {
             }
         } else {
 //            APIService.default.clearAuthAndReLogin()
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            appDelegate.window!.rootViewController = UINavigationController(rootViewController: ScanViewController())
+//            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//            appDelegate.window!.rootViewController = UINavigationController(rootViewController: LoginViewController())
         }
     }
     

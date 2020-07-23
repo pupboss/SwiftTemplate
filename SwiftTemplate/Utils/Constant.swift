@@ -10,7 +10,7 @@ import Foundation
 
 struct Constants {
     
-    static let apiHost = "https://api.google.com"
+    static let apiHost = "https://static.pupboss.com"
     
     static let authTokenDefaultsKey = "authTokenDefaultsKey"
     

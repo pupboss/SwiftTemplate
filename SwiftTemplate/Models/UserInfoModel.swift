@@ -9,7 +9,7 @@
 import Foundation
 
 struct UserInfoModel : Codable {
-    let id: String
+    let userId: String
     let email: String
     let name: String
     let publicKey: String

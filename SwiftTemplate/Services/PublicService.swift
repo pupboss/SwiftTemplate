@@ -21,7 +21,7 @@ class PublicService {
     var userInfo: UserInfoModel
     
     init() {
-        userInfo = UserInfoModel(id: "", email: "", name: "", publicKey: "", role: "", userStatus: .normal)
+        userInfo = UserInfoModel(userId: "", email: "", name: "", publicKey: "", role: "", userStatus: .normal)
         displayName = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? ""
         bundleName = Bundle.main.infoDictionary?["CFBundleName"] as? String ?? ""
         versionString = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""

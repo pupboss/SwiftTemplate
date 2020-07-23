@@ -64,7 +64,7 @@ class APIService {
     
     func fetchUserInfo(completionHandler: @escaping (Result<UserInfoModel, ErrorModel>) -> Void) {
         
-        requestDecodable(path: "/v1/user/show", decodableType: UserInfoModel.self, completionHandler: completionHandler)
+        requestDecodable(path: "/api/v1/user.json", decodableType: UserInfoModel.self, completionHandler: completionHandler)
     }
 
     func requestDecodable<T: Decodable>(path: String, decodableType: T.Type, completionHandler: @escaping (Result<T, ErrorModel>) -> Void) {
@@ -77,7 +77,11 @@ class APIService {
         
         let paramsEncoding: ParameterEncoding = paramsType == .form ? URLEncoding.default : JSONEncoding.default
         
-        session.request(requestURL, method: method, parameters: params, encoding: paramsEncoding).validate(statusCode: 200..<300).responseDecodable(of: decodableType) { response in
+        let decoder = JSONDecoder()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        decoder.dateDecodingStrategy = .formatted(formatter)
+        session.request(requestURL, method: method, parameters: params, encoding: paramsEncoding).validate(statusCode: 200..<300).responseDecodable(of: decodableType, decoder: decoder) { response in
             print(
                 """
                 [Request]
