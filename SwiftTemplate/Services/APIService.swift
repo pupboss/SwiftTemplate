@@ -58,8 +58,7 @@ class APIService {
         UserDefaults.standard.set(nil, forKey: Constants.authTokenDefaultsKey)
         apiAuthToken = nil
         
-//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//        appDelegate.window?.rootViewController = UINavigationController(rootViewController: LoginViewController())
+//        UIApplication.shared.windows.first!.rootViewController =
     }
     
     func fetchUserInfo(completionHandler: @escaping (Result<UserInfoModel, ErrorModel>) -> Void) {

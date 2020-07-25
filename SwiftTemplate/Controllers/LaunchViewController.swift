@@ -30,8 +30,8 @@ class LaunchViewController: UIViewController {
                 switch result {
                 case .success(_):
                     // Do something
-                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                    appDelegate.window!.rootViewController = UINavigationController(rootViewController: NewsViewController())
+
+                    UIApplication.shared.windows.first!.rootViewController = UINavigationController(rootViewController: NewsViewController())
                     break
                 case .failure(_):
                     APIService.default.clearAuthAndReLogin()
@@ -39,8 +39,7 @@ class LaunchViewController: UIViewController {
             }
         } else {
 //            APIService.default.clearAuthAndReLogin()
-//            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//            appDelegate.window!.rootViewController = UINavigationController(rootViewController: LoginViewController())
+//            UIApplication.shared.windows.first!.rootViewController =
         }
     }
     
