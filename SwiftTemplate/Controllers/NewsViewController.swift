@@ -61,7 +61,7 @@ class NewsViewController: UIViewController, UITableViewDelegate, UITableViewData
         newsListPage = 1
         let path = "/api/v1/news.json"
         
-        APIService.default.requestDecodable(method: .get, path: path, params: ["pageSize": newsListPageSize, "page": newsListPage], paramsType: .form, decodableType: [NewsModel].self) { (result) in
+        APIService.shared.requestDecodable(method: .get, path: path, params: ["pageSize": newsListPageSize, "page": newsListPage], paramsType: .form, decodableType: [NewsModel].self) { (result) in
             switch result {
             case .success(let value):
                 self.news.removeAll()
@@ -84,7 +84,7 @@ class NewsViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func appendDataFromServer() {
         
-        APIService.default.requestDecodable(method: .get, path: "/api/v1/news.json", params: ["pageSize": newsListPageSize, "page": newsListPage], paramsType: .form, decodableType: [NewsModel].self) { (result) in
+        APIService.shared.requestDecodable(method: .get, path: "/api/v1/news.json", params: ["pageSize": newsListPageSize, "page": newsListPage], paramsType: .form, decodableType: [NewsModel].self) { (result) in
             switch result {
             case .success(let value):
 

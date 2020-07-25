@@ -9,7 +9,7 @@
 import UIKit
 
 class PublicService {
-    static let `default` = PublicService()
+    static let shared = PublicService()
     
     var displayName: String
     var bundleName: String

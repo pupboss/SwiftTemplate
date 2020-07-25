@@ -25,7 +25,7 @@ A simple get & non-params request:
 
 ```
 // Returns a normal object, use UserInfoModel.self
-APIService.default.requestDecodable(path: "/your/profile", decodableType: UserInfoModel.self) { (result) in
+APIService.shared.requestDecodable(path: "/your/profile", decodableType: UserInfoModel.self) { (result) in
     switch result {
     case .success(let user):
         user = user
@@ -35,7 +35,7 @@ APIService.default.requestDecodable(path: "/your/profile", decodableType: UserIn
 }
 
 // Returens an array, use [OrderModel].self
-APIService.default.requestDecodable(path: "/your/orders", decodableType: [OrderModel].self) { (result) in
+APIService.shared.requestDecodable(path: "/your/orders", decodableType: [OrderModel].self) { (result) in
     switch result {
     case .success(let orders):
         orders = orders

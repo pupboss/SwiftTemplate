@@ -24,13 +24,13 @@ final class AccessTokenInterceptor: RequestInterceptor {
         }
         
         var urlRequest = urlRequest
-        urlRequest.headers.add(.authorization(APIService.default.apiAuthToken ?? ""))
+        urlRequest.headers.add(.authorization(APIService.shared.apiAuthToken ?? ""))
         completion(.success(urlRequest))
     }
 }
 
 class APIService {
-    static let `default` = APIService()
+    static let shared = APIService()
     let manager = NetworkReachabilityManager(host: Constants.apiHost)
     
     // Properties
@@ -39,7 +39,7 @@ class APIService {
     
     private lazy var session: Session = {
         let configuration = URLSessionConfiguration.af.default
-        let uaHeader = HTTPHeader.userAgent("\(PublicService.default.bundleName)/\(PublicService.default.versionString)" + " (\(PublicService.default.deviceModel); iOS\(PublicService.default.systemVersion))")
+        let uaHeader = HTTPHeader.userAgent("\(PublicService.shared.bundleName)/\(PublicService.shared.versionString)" + " (\(PublicService.shared.deviceModel); iOS\(PublicService.shared.systemVersion))")
         configuration.headers.add(uaHeader)
         let session = Session(configuration: configuration, interceptor:AccessTokenInterceptor())
         

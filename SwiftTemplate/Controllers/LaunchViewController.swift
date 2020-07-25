@@ -20,25 +20,25 @@ class LaunchViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        APIService.default.apiAuthToken = "To simulate exsiting users" // To simulate exsiting users
+        APIService.shared.apiAuthToken = "To simulate exsiting users" // To simulate exsiting users
         
-        if APIService.default.apiAuthToken != nil {
+        if APIService.shared.apiAuthToken != nil {
             view.makeToastActivity(.center)
             
-            APIService.default.fetchUserInfo { (result) in
+            APIService.shared.fetchUserInfo { (result) in
                 self.view.hideToastActivity()
                 switch result {
-                case .success(_):
+                case .success(let userInfo):
                     // Do something
-
+                    PublicService.shared.userInfo = userInfo
                     UIApplication.shared.windows.first!.rootViewController = UINavigationController(rootViewController: NewsViewController())
                     break
                 case .failure(_):
-                    APIService.default.clearAuthAndReLogin()
+                    APIService.shared.clearAuthAndReLogin()
                 }
             }
         } else {
-//            APIService.default.clearAuthAndReLogin()
+//            APIService.shared.clearAuthAndReLogin()
 //            UIApplication.shared.windows.first!.rootViewController =
         }
     }
