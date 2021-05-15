@@ -5,7 +5,9 @@
              )](https://en.wikipedia.org/wiki/swift)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](http://mit-license.org)
 
-A collection of reusable modules in my projects.
+Demo Swift project with clear and concise structure.
+
+适合小型 app 的 Swift 项目架构。代码结构简练，没有多余的废话。此项目包括了网络模块，布局，主题色管理，tableview 标准实现，还有一些零碎东西。网络层改了好几版花了不少心思，用起来还是很爽的比如 JSON 转 model 还有错误统一处理，有一些可复用的 extension 请参考 readme 文档。
 
 ## Models
 
@@ -34,7 +36,7 @@ APIService.shared.requestDecodable(path: "/your/profile", decodableType: UserInf
     }
 }
 
-// Returens an array, use [OrderModel].self
+// Returns an array, use [OrderModel].self
 APIService.shared.requestDecodable(path: "/your/orders", decodableType: [OrderModel].self) { (result) in
     switch result {
     case .success(let orders):
