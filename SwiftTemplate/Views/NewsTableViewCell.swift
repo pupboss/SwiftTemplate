@@ -14,10 +14,26 @@ class NewsTableViewCell: UITableViewCell {
     var new: NewsModel? {
         didSet {
             if let new = new {
-                headImageView.kf.setImage(with: URL(string: new.imageUrl ?? ""))
                 titleLabel.text = new.title
                 contentLabel.text = new.description
                 descLabel.text = new.sourceName + "  ·  " + new.publishedAt.timeAgoString
+                
+                if let imageUrl = new.imageUrl {
+                    headImageView.kf.setImage(with: URL(string: imageUrl))
+                    headImageView.snp.remakeConstraints { make in
+                        make.trailing.equalTo(bgView).offset(-8)
+                        make.centerY.equalTo(bgView)
+                        make.width.equalTo(80)
+                        make.height.equalTo(80)
+                    }
+                } else {
+                    headImageView.snp.remakeConstraints { make in
+                        make.trailing.equalTo(bgView).offset(-8)
+                        make.centerY.equalTo(bgView)
+                        make.width.equalTo(0)
+                        make.height.equalTo(80)
+                    }
+                }
                 
                 DispatchQueue.main.asyncAfter(deadline: .now()) {
                     

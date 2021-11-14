@@ -24,7 +24,7 @@ final class AccessTokenInterceptor: RequestInterceptor {
         }
         
         var urlRequest = urlRequest
-        urlRequest.headers.add(.authorization(APIService.shared.apiAuthToken ?? ""))
+        urlRequest.headers.add(HTTPHeader(name: "Authorizationxxx", value: APIService.shared.apiAuthToken ?? ""))
         completion(.success(urlRequest))
     }
 }
